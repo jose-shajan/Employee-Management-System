@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            {% if employee.image %}
+
+            <img src="{{ employee.image.url }}"
+                 width="100%"
+                 class="rounded shadow">
+
+            {% else %}
+
+            <img src="https://via.placeholder.com/300"
+                 width="100%"
+                 class="rounded shadow">
+
+            {% endif %}
+
+        </div>
+
+        <div class="col-md-8">
+
+            <h2 class="mb-4">
+                Employee Details
+            </h2>
+
+            <table class="table table-bordered table-striped">
+
+                <tr>
+                    <th>Name</th>
+                    <td>{{ employee.name }}</td>
+                </tr>
+
+                <tr>
+                    <th>Age</th>
+                    <td>{{ employee.age }}</td>
+                </tr>
+
+                <tr>
+                    <th>Email</th>
+                    <td>{{ employee.email }}</td>
+                </tr>
+
+                <tr>
+                    <th>Phone</th>
+                    <td>{{ employee.phone }}</td>
+                </tr>
+
+                <tr>
+                    <th>Department</th>
+                    <td>{{ employee.department }}</td>
+                </tr>
+
+                <tr>
+                    <th>Salary</th>
+                    <td>{{ employee.salary }}</td>
+                </tr>
+
+                <tr>
+                    <th>Address</th>
+                    <td>{{ employee.address }}</td>
+                </tr>
+
+            </table>
+
+            <div class="mt-3">
+
+                <a href="/dashboard/" class="btn btn-secondary">
+                    Back
+                </a>
+
+                {% if user.is_authenticated %}
+
+                <a href="/update/{{employee.id}}/"
+                   class="btn btn-warning">
+
+                    Edit
+
+                </a>
+
+                <a href="/delete/{{employee.id}}/"
+                   class="btn btn-danger">
+
+                    Delete
+
+                </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
