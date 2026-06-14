@@ -29,6 +29,10 @@ urlpatterns = [
 
     path('logout/', views.user_logout, name='logout'),
 
+    path('change-password/', views.change_password, name='change_password'),
+
+    path('add_employee/', views.add_employee, name='add_employee'),
+
     path('add_employee/', views.add_employee, name='add_employee'),
 
     path('single/<int:id>/', views.single_employee, name='single'),
@@ -36,4 +40,6 @@ urlpatterns = [
     path('update/<int:id>/', views.update_employee, name='update'),
 
     path('delete/<int:id>/', views.delete_employee, name='delete'),
+
+    path('change-password/', views.change_password, name='change_password'),
 ]

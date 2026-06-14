@@ -7,12 +7,16 @@ from django.shortcuts import render, redirect
 from .models import EmployeeModel
 from .forms import EmployeeForm
 
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
+
+@login_required
 def index(request):
 
     employees = EmployeeModel.objects.all()
@@ -122,3 +126,24 @@ def delete_employee(request, id):
     employee.delete()
 
     return redirect('/dashboard/')
+
+@login_required
+def change_password(request):
+
+    if request.method == 'POST':
+
+        form = PasswordChangeForm(request.user, request.POST)
+
+        if form.is_valid():
+
+            user = form.save()
+
+            update_session_auth_hash(request, user)
+
+            return redirect('/dashboard/')
+
+    else:
+
+        form = PasswordChangeForm(request.user)
+
+    return render(request, 'change_pass.html', {'form': form})
